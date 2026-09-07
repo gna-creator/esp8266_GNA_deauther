@@ -62,21 +62,16 @@
 // ===== LED ===== //
   #define USE_LED true
   #define LED_NEOPIXEL
-
   #define LED_NEOPIXEL_GRB
 // #define LED_NEOPIXEL_RGB
-
   #define LED_MODE_BRIGHTNESS 10
-
   #define LED_NUM 1
   #define LED_NEOPIXEL_PIN 15 // D8
 
 // ===== DISPLAY ===== //
   #define USE_DISPLAY true
   #define FLIP_DIPLAY true
-
   #define SH1106_I2C
-
   #define I2C_ADDR 0x3C
   #define I2C_SDA 4      // D2
   #define I2C_SCL 5      // D1
@@ -93,7 +88,6 @@
 // ===== DISPLAY ===== //
   #define SH1106_I2C
 // #define SSD1306_I2C
-
   #define I2C_ADDR 0x3C
   #define I2C_SDA 5
   #define I2C_SCL 4
@@ -108,18 +102,15 @@
 // ===== LED ===== //
   #define LED_NEOPIXEL_GRB
 // #define LED_NEOPIXEL_RGB
-
   #define LED_NUM 1
   #define LED_NEOPIXEL_PIN 9
   #define LED_MODE_BRIGHTNESS 10
-
 
 // https://github.com/SpacehuhnTech/esp8266_deauther/wiki/Setup-Display-&-Buttons#example-setup-with-spi-oled
 #elif defined(DISPLAY_EXAMPLE_SPI)
 
   #define SH1106_SPI
 // #define SSD1306_SPI
-
   #define SPI_RES 5
   #define SPI_DC 4
   #define SPI_CS 15
@@ -134,7 +125,6 @@
 // ===== LED ===== //
   #define LED_NEOPIXEL_GRB
 // #define LED_NEOPIXEL_RGB
-
   #define LED_NUM 1
   #define LED_NEOPIXEL_PIN 9
   #define LED_MODE_BRIGHTNESS 10
@@ -375,13 +365,45 @@
  #define LED_MY92_CH_BRIGHTNESS 3
  #define LED_MY92_MODEL MY92XX_MODEL_MY9291
 
-#elif defined(DEFAULT_ESP8266) || defined(NODEMCU) || defined(WEMOS_D1_MINI) || defined(DSTIKE_USB_DEAUTHER) || defined(DSTIKE_NODEMCU_07) || defined(DSTIKE_DEAUTHER_V1) || defined(DSTIKE_DEAUTHER_V2) || defined(DSTIKE_DEAUTHER_V3)
-// ===== LED ===== //
-// #define LED_DIGITAL
-// #define LED_PIN_R 16 // NodeMCU on-board LED
-// #define LED_PIN_B 2  // ESP-12 LED
+#elif defined(DEFAULT_ESP8266) || defined(NODEMCU) || defined(WEMOS_D1_MINI) || defined(DSTIKE_USB_DEAUTHER) || defined(DSTIKE_NODEMCU_07) || defined(DSTIKE_DEAUTHER_V1) || defined(DSTIKE_DEAUTHER_V2)
 
-#endif /* if defined(DEFAULT_ESP8266) || defined(NODEMCU) || defined(WEMOS_D1_MINI) || defined(DSTIKE_USB_DEAUTHER) || defined(DSTIKE_NODEMCU_07) || defined(DSTIKE_DEAUTHER) || defined(DSTIKE_DEAUTHER_V1) || defined(DSTIKE_DEAUTHER_V2) || defined(DSTIKE_DEAUTHER_V3) */
+// ========== CONFIGURAZIONE PERSONALIZZATA: 2 OLED UNIFICATI ========== //
+
+// ===== LED (GPIO 15 - D8) ===== //
+  #define USE_LED true
+  #define LED_DIGITAL
+  #define LED_PIN_R 15  // D8 - GPIO 15 (NON GPIO 16, che è usato da BACK button)
+  #define LED_MODE_BRIGHTNESS 255
+
+// ===== DISPLAY: 2 OLED 0,96" I2C UNIFICATI ===== //
+  #define USE_DISPLAY true
+  #define SSD1306_I2C
+  #define FLIP_DIPLAY false
+  #define DISPLAY_TEXT "Dual OLED I2C"
+
+// Configurazione I2C per due OLED
+  #define I2C_SDA 5      // D1 / GPIO 5
+  #define I2C_SCL 4      // D2 / GPIO 4
+  
+  // Primo OLED: indirizzo I2C 0x3C
+  #define I2C_ADDR 0x3C
+  
+  // Secondo OLED: indirizzo I2C 0x3D (predefinito alternativo)
+  #define I2C_ADDR_SECONDARY 0x3D
+  
+  // Abilitare gestione dual display
+  #define DUAL_OLED_ENABLED true
+  #define DUAL_OLED_WIDTH 128   // Larghezza di ogni display
+  #define DUAL_OLED_HEIGHT 64   // Altezza di ogni display
+  #define DUAL_OLED_TOTAL_WIDTH 256  // Larghezza totale virtuale (128 + 128)
+
+// ===== PULSANTI (4 pulsanti fisici) ===== //
+  #define BUTTON_UP 12    // D6 / GPIO 12
+  #define BUTTON_DOWN 13  // D7 / GPIO 13
+  #define BUTTON_A 14     // D5 / GPIO 14 (SELECT)
+  #define BUTTON_B 16     // D0 / GPIO 16 (BACK)
+
+#endif /* if defined(DEFAULT_ESP8266) || defined(NODEMCU) || defined(WEMOS_D1_MINI) || defined(DSTIKE_USB_DEAUTHER) || defined(DSTIKE_NODEMCU_07) || defined(DSTIKE_DEAUTHER) || defined(DSTIKE_DEA[...] */
 // ============================== //
 
 
